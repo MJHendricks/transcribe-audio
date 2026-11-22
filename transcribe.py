@@ -16,6 +16,8 @@ def transcribe(path,size="small"):
         word_timestamps=True
     )
 
+    segments = list(segments)
+
     # debug purposes only, remove for final push
 
     save_json(segments,info)
@@ -42,13 +44,12 @@ def save_json(segments,info):
 
 def save_txt(segments):
     text_lines = []
-    print("writing txt")
     for segment in segments:
         clean_text = segment.text.strip()
         text_lines.append(clean_text)
 
-    with open("./output/output.txt","w") as text_file:
-        text_file.write(" ".join(text_lines))
+    with open("./output/output.txt","w",encoding="utf-8") as text_file:
+        text_file.write("\n".join(text_lines))
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
